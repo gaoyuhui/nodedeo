@@ -1,12 +1,19 @@
-const db = require('./db_helper.js');
+// const db = require('../modles/db_helper.js');
+const topicsModel = require('../modles/topic');
+// const momment = require('momment');
 exports.showIndex = (req,res) => {
-	var sql = 'select * from topics'
-	db.query(sql, function (error, results, fields) {
-		// console.log(results[0]);
-  		if (error) throw error;
-	res.render('index.html',{
-		topics: results
+	
+	topicsModel.getById(function(err, topics) {
+		if(err) {
+			return res.send('服务器内部错误')
+		}
+		res.render('index.html',{
+			user: req.session.user,
+			topics,
+			// momment
+		});
 	})
-});
+	
+
 
 }

@@ -14,15 +14,16 @@ router
 .post('/signin',user.handleSignin)
 .get('/signup',user.showSignup)
 .post('/signup',user.handleSignup)
-.post('/signout',user.handleSignout)
+.get('/signout',user.handleSignout)
 
 
 router
 .get('/topic/create',topic.showTopic)
 .post('/topic/create',topic.handleTopic)
+
 .get('/topic/:topicID',topic.showTopicID)
 .get('/topic/:topicID/edit',topic.showEdit)
 .post('/topic/:topicID/edit',topic.handleTopicID)
-.post('/topic/:topicID/edit',topic.hanleDelete)
+.get('/topic/:topicID/edit',topic.hanleDelete)
 
 module.exports = router

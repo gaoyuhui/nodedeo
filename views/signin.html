@@ -41,7 +41,7 @@
     <script>
         $('#signin_form').on('submit',function(e) {
             e.preventDefault();
-            var formdata = $('#signin_form').serialize();
+            var formdata = $(this).serialize();
             // console.log(formdata);
 
             $.ajax({
@@ -49,7 +49,12 @@
                 data:formdata,
                 type:'post',
                 success:function(data) {
-                    // alert('登陆成功');
+                    if(data.code === 200) {
+                        location.href = '/';
+                    }else {
+                        alert(data.msg);
+                       
+                    }
                 },
                 error:function(err) {
                     if(err) {
