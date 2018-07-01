@@ -11,14 +11,28 @@
     <section class="container">
         <div class="row">
             <div class="col-md-5">
-                {{ if !topic }} 编辑的话题已不存在！ {{ else if topic.userId !== sessionUser.id }} 你没有权限执行该操作！ {{ else }}
+                {{ if !topic }} 编辑的话题已不存在！ {{ else if topic.userId !== user.id }} 你没有权限执行该操作！ {{ else }}
                 <form id="form" action="/topic/{{ topic.id }}/edit">
                     <!-- 表单隐藏域 -->
                     <input type="hidden" id="topic_id" value="{{ topic.id }}">
                     <div class="form-group">
+                        <label for="exampleInputEmail1">选择模块</label>
+                        <select name="categoryId" id="categoryId" class="form-control">
+                            {{ each categories }}
+                            {{ if $value.id === topic.categoryId }}
+                                <option selected value="{{ $value.id }}">{{ $value.nickname }}</option>
+                            {{ else }}
+                                <option value="{{ $value.id }}">{{ $value.nickname }}</option>
+                            {{ /if }}
+
+                            {{ /each }}
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="title">标题</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{ topic.title }}">
                     </div>
+                    
                     <div class="form-group">
                         <label for="content">内容</label>
                         <textarea class="form-control" id="content" name="content" rows="10">{{ topic.content }}</textarea>
@@ -33,7 +47,18 @@
     <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script>
-        // 处理表单提交
+        $('#form').on('submit',function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            var id = $('#topic_id').val();
+            $.post('/topic/'+id+'/edit', formData, function(data) {
+                if(data.code === 200) {
+                    location.href = '/';
+                }else {
+                    alert(data.msg)
+                }
+            })
+        })
     </script>
 </body>
 

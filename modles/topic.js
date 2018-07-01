@@ -56,7 +56,7 @@ exports.delete = (id,callback) => {
 // 修改
 exports.update = (topic,callback) => {
     db.query(
-        'update `topics` set `title`=?, `content`=?, `categoryId`=?, where id=?',
+        'update `topics` set `title`=?, `content`=?, `categoryId`=? where id=?',
         [topic.title, topic.content, topic.categoryId, topic.id,],
         (err, results) => {
             if(err) {
@@ -71,9 +71,9 @@ exports.update = (topic,callback) => {
     );
 };
 
-exports.getById = (callback) => {
+exports.getAll = (callback) => {
     db.query(
-        'select topics.id, nickname, title, topics.createdAt from `topics` join `users` on userId = users.id',
+        'select topics.id, nickname, title, topics.createdAt from `topics` join `users` on userId = users.id order by topics.createdAt desc ',
         (err, results) => {
             if(err) {
                 return callback(err);

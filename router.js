@@ -24,6 +24,6 @@ router
 .get('/topic/:topicID',topic.showTopicID)
 .get('/topic/:topicID/edit',topic.showEdit)
 .post('/topic/:topicID/edit',topic.handleTopicID)
-.get('/topic/:topicID/edit',topic.hanleDelete)
+.get('/topic/:topicID/delete',topic.hanleDelete)
 
 module.exports = router

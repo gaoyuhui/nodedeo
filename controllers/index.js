@@ -3,7 +3,7 @@ const topicsModel = require('../modles/topic');
 // const momment = require('momment');
 exports.showIndex = (req,res) => {
 	
-	topicsModel.getById(function(err, topics) {
+	topicsModel.getAll(function(err, topics) {
 		if(err) {
 			return res.send('服务器内部错误')
 		}
